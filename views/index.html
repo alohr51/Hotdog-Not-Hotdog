@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="keywords" content="hotdog">
+		<meta name="description" content="Hotdog not hotdog">
+		
+		<title>Hotdog?</title>
+		<link rel="stylesheet" href="stylesheets/style.css" />
+	</head>
+
+	<body>
+		<div id="container">
+			<div class="header">Watson decides if it's a Hotdog or Not Hotdog!</div>
+			<div class="infoContainer">
+				Provide a URL to an image or upload an image and click submit to detect hotdogs
+			</div>
+
+			<div class="imageContent">
+				<input id="maybeHotdog" v-on:change="imagePreview" type="file" accept="image/jpeg,image/png"> 
+				<button v-on:click="submitImage" class="btn">Submit Image</button>
+			</div>
+
+			<div class="urlContent">
+				<input id="maybeHotdogURL" v-on:paste="urlPreviewPaste" placeholder="URL" type="text" value="">
+				<button  v-on:click="clearURL" class="btn">Clear</button>
+				<button  v-on:click="submitURL" class="btn">Submit URL</button>
+			</dib>
+
+			<div id="result">
+				&nbsp;
+				<img src="images/loader.gif" v-if="showLoader"/>
+				{{hotdogResult}}
+			</div>
+
+			<div class="previewContainer">
+				<img id="imgPreview" onerror="this.src='images/notFound.png'" />
+			</div>
+		</div>
+		<script src="javascripts/thirdparty/jquery-3.2.1.min.js"></script>
+		<script src="javascripts/thirdparty/vue.min.js"></script>
+		<script src="javascripts/client.js"></script>
+	</body>
+</html>

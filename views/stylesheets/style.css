@@ -1,0 +1,87 @@
+body, html {
+	background-color: #3b4b54;
+	color: white;
+}
+
+#container{
+	width:100%;
+}
+
+#maybeHotdog{
+	height: 31px;
+	width: 40%;
+}
+
+#maybeHotdogURL{
+	margin-top: 15px;
+	height: 31px;
+	width: 50%;
+}
+
+#result{
+	width: 50%;
+	margin: 0 auto;
+	margin-top:25px;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.header{
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.imageContent, .urlContent{
+	width: 50%;
+	margin: 0 auto;
+	margin-top: 20px;
+	text-align: center;
+	font-size: 1.2em;
+}
+
+.infoContainer{
+	width: 50%;
+	font-size: 1.1em;
+	margin: 0 auto;
+	margin-top: 25px;
+	text-align: center;
+}
+
+.previewContainer{
+	width: 50%;
+	margin: 0 auto;
+	margin-top: 15px;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.submitContainer{
+	margin:auto;
+	text-align: center;
+	margin-top: 25px;
+}
+
+#imgPreview{
+	max-width: 400px;
+	display:block;
+	margin:auto;
+}
+
+.btn {
+	min-width: 10%;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 14px;
+	background: #00b2ef;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+	border: none;
+	cursor:pointer;
+}
+
+.btn:hover {
+	background: #3cb0fd;
+	text-decoration: none;
+}

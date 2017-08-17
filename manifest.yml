@@ -1,0 +1,6 @@
+---
+applications:
+- name: Hotdog-Not-Hotdog
+  memory: 512M
+  services:
+   - Hotdog-Visual-Recognition

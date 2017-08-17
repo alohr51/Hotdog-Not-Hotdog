@@ -1,0 +1,16 @@
+{
+  "name": "Hotdog_Not_Hotdog",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cfenv": "^1.0.4",
+    "express": "^4.15.3",
+    "mime": "^1.3.6",
+    "multer": "^1.3.0",
+    "request": "^2.81.0",
+    "watson-developer-cloud": "^2.34.0"
+  }
+}
