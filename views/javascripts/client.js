@@ -72,7 +72,7 @@ var app = new Vue({
 				reader.onload = function (e) {
 					$('#imgPreview').attr('src', e.target.result);
 				}
-		    	reader.readAsDataURL(event.target.files[0]);
+		    		reader.readAsDataURL(event.target.files[0]);
 			}
 		},
 		urlPreviewPaste: function (event) {
