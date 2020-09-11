@@ -11,7 +11,8 @@ var multer  = require('multer');
 var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
-var watson = require('watson-developer-cloud');
+const VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3');
+const { IamAuthenticator } = require('ibm-watson/auth');
 const crypto = require('crypto');
 const IMAGE_SIZE_LIMIT_BYTES = 2000000; //2MB
 const UPLOAD_DIR_NAME = "uploads";
@@ -33,15 +34,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // use the cfenv package to grab our application environment obj
 var appEnv = cfenv.getAppEnv();
 
-// get the bounded Bluemix service credentials
+// get the bounded IBM Cloud service credentials
 var watsonService = appEnv.getService("Hotdog-Visual-Recognition");
 var apikey = watsonService.credentials.api_key;
 
-var visual_recognition = watson.visual_recognition({
-  api_key: apikey,
-  version: 'v3',
-  version_date: '2016-05-20'
-});
+// serviceUrl may be incorrect, it might be a different key under vcap services.
+var serviceUrl = watsonService.credentials.serviceUrl;
+
+const visualRecognition = new VisualRecognitionV3({
+	serviceUrl,
+	version: '2018-03-19',
+	authenticator: new IamAuthenticator({ apikey }),
+  });
 
 // Configure views
 app.use(express.static(path.join(__dirname, 'views')));
@@ -77,21 +81,21 @@ app.post('/hotdog', upload.single('maybe-hotdog-image'), function(req, res) {
 	}
 
 	var params = {
-		classifier_ids: ["Hotdogs_1346435223"],
+		classifierIds: ["Hotdogs_1346435223"],
 		threshold: .5,
-		image_file: fs.createReadStream(filePath)
+		imagesFile: fs.createReadStream(filePath)
 	};
 
-	visual_recognition.classify(params, function(err, result) {
-		// now that the image is classified we can delete it from uploads folder
-		deleteFile(filePath);
-
-		if (err){
+	visualRecognition.classify(params)
+		.then(response => {		
+			// now that the image is classified we can delete it from uploads folder
+			deleteFile(filePath);
+			return res.status(200).json(response.result);
+		})
+		.catch(err => {
 			console.log(err);
-			return res.status(500).json({msg: "Failure to classify image"});
-		}
-		return res.status(200).json(result);
-	});
+			return res.status(500).json({msg: "Failure to classify image: " + err});
+		});
 });
 
 app.get('/hotdog', upload.single('maybe-hotdog-image'), function(req, res) {
